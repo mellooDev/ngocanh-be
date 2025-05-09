@@ -32,7 +32,7 @@ export class AuthService {
       throw new Error('Sai mật khẩu');
     }
 
-    const payload = {
+    const payload: any = {
       id: user.id,
       username: user.username,
       email: user.email,
@@ -40,6 +40,27 @@ export class AuthService {
       role_id: user.role_id,
       role_name: user.role_name,
     };
+
+    if (user.role_name === 'student') {
+      payload.student_id = user.student_id;
+      payload.student_code = user.student_code;
+      payload.student_status = user.student_status;
+      payload.class_id = user.class_id;
+    } else if (user.role_name === 'lecturer') {
+      payload.lecturer_id = user.lecturer_id;
+      payload.lecturer_code = user.lecturer_code;
+      payload.academic_rank = user.academic_rank_lecturer;
+      payload.degree = user.degree_lecturer;
+      payload.major_id = user.major_id_lecturer;
+      payload.max_slot = user.max_slot_lecturer;
+    } else if (user.role_name === 'dean') {
+      payload.dean_id = user.dean_id;
+      payload.dean_code = user.dean_code;
+      payload.academic_rank = user.academic_rank_dean;
+      payload.degree = user.degree_dean;
+      payload.major_id = user.major_id_dean;
+      payload.max_slot = user.max_slot_dean;
+    }
 
     const options: SignOptions = {
       expiresIn: '1h',

@@ -37,6 +37,7 @@ export class StudentService {
         return {
             data: result.map((row: any) => ({
                 id: row.id,
+                student_id: row.student_id,
                 student_code: row.student_code,
                 fullname: row.fullname,
                 email: row.email,
