@@ -7,6 +7,7 @@ import academicYearRouter from './academicYearRouter';
 import studentRouter from './studentRouter';
 import roundSessionRouter from './roundSessionRouter';
 import registerProjectRouter from './registerProjectRouter';
+import approveProjectRouter from './approveProjectRouter';
 const router = Router();
 
 router.use('/action', actionRouter);
@@ -17,4 +18,5 @@ router.use('/academicYear', academicYearRouter);
 router.use('/student', studentRouter);
 router.use('/round', roundSessionRouter);
 router.use('/register-project', registerProjectRouter);
+router.use('/approve-project', approveProjectRouter);
 export default router;
