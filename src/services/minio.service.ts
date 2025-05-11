@@ -1,6 +1,8 @@
 import * as Minio from "minio";
 import { minioConfig } from "../config/minio";
+import { injectable } from "tsyringe";
 
+@injectable()
 export class MinioService {
     private minioClient: Minio.Client;
     private bucketName: string;
@@ -48,10 +50,9 @@ export class MinioService {
         const timestamp = Date.now();
 
         const extension = file.originalname.split(".").pop();
-        const key = `${folderPath}/${timestamp}.${extension}`.replace(
-            /^\/+/,
-            ""
-        );
+        const originalFileName = file.originalname;
+
+        const key = `${folderPath}/${originalFileName}`.replace(/^\/+/, "");
 
         await this.minioClient.putObject(
             this.bucketName,
@@ -66,6 +67,27 @@ export class MinioService {
         const url = `${minioConfig.endPoint}:${minioConfig.port}/${this.bucketName}/${key}`;
         return { url, key };
     }
+
+    async uploadBuffer(
+        buffer: Buffer,
+        fileName: string,
+        folderPath: string,
+        contentType: string = 'application/pdf'
+    ): Promise<{ url: string; key: string }> {
+        const key = `${folderPath}/${fileName}`.replace(/^\/+/, '');
+    
+        await this.minioClient.putObject(
+            this.bucketName,
+            key,
+            buffer,
+            buffer.length,
+            { 'Content-Type': contentType }
+        );
+    
+        const url = `${minioConfig.endPoint}:${minioConfig.port}/${this.bucketName}/${key}`;
+        return { url, key };
+    }
+    
 
     async deleteFile(key: string): Promise<void> {
         await this.minioClient.removeObject(this.bucketName, key);

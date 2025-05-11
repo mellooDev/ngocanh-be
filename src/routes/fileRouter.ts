@@ -1,20 +1,30 @@
-// import { Router } from 'express';
-// import multer from 'multer';
-// import { FileController } from '../controllers/fileController';
-// import { authenticate } from '../middlewares/auth.middleware';
+import { Router } from 'express';
+import multer from 'multer';
+import { container } from 'tsyringe';
+import { FileController } from '../controllers/fileController';
 
-// const upload = multer({ storage: multer.memoryStorage() });
-// const router = Router();
-// const fileController = new FileController();
+const upload = multer({ storage: multer.memoryStorage() });
+const fileRouter = Router();
+const fileController = container.resolve(FileController);
 
-// router.post(
-//   '/upload',
-//   authenticate,
-//   upload.single('file'),
-//   fileController.uploadFile
-// );
+fileRouter.post(
+  '/upload',
+  upload.single('file'),
+  fileController.uploadFile.bind(fileController)
+);
 
-// router.delete('/:key', authenticate, fileController.deleteFile);
-// router.get('/presigned/:key', authenticate, fileController.getPresignedUrl);
+fileRouter.post(
+    '/uploadPdf',
+    upload.single('file'),
+    fileController.uploadFilePdf.bind(fileController)
+  );
 
-// export default router;
+  fileRouter.post(
+    '/getFiles',
+    fileController.getSharedFiles.bind(fileController)
+  );
+
+fileRouter.delete('/:key', fileController.deleteFile);
+fileRouter.get('/presigned/:key', fileController.getPresignedUrl);
+
+export default fileRouter;

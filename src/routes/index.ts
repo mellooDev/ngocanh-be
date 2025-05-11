@@ -8,6 +8,7 @@ import studentRouter from './studentRouter';
 import roundSessionRouter from './roundSessionRouter';
 import registerProjectRouter from './registerProjectRouter';
 import approveProjectRouter from './approveProjectRouter';
+import fileRouter from './fileRouter';
 const router = Router();
 
 router.use('/action', actionRouter);
@@ -19,4 +20,5 @@ router.use('/student', studentRouter);
 router.use('/round', roundSessionRouter);
 router.use('/register-project', registerProjectRouter);
 router.use('/approve-project', approveProjectRouter);
+router.use('/file', fileRouter);
 export default router;
