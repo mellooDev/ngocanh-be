@@ -44,6 +44,26 @@ export class ProjectSessionService {
             }
         };
     }
+
+    async getAllProjectSession(
+    ): Promise<any> {
+        const result = await this.projectSessionRepository.getAllSession(
+        );
+    
+        return {
+            data: result
+        };
+    }
+
+    async getSessionWithoutInstructionProcess(
+    ): Promise<any> {
+        const result = await this.projectSessionRepository.getSessionWithoutInstructionProcess(
+        );
+    
+        return {
+            data: result
+        };
+    }
     
     async createProjectSession(data: {
         session: ProjectSession;

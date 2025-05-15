@@ -15,5 +15,15 @@ projectSessionRouter.post(
     projectSessionController.createProjectSession.bind(projectSessionController)
 )
 
+projectSessionRouter.get(
+    '/getAllProjectSession',
+    projectSessionController.getAllSession.bind(projectSessionController)
+)
+
+projectSessionRouter.get(
+    '/getSessionWithoutInstructionProcess',
+    projectSessionController.getSessionWithoutInstructionProcess.bind(projectSessionController)
+)
+
 
 export default projectSessionRouter;

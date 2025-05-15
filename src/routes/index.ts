@@ -9,6 +9,7 @@ import roundSessionRouter from './roundSessionRouter';
 import registerProjectRouter from './registerProjectRouter';
 import approveProjectRouter from './approveProjectRouter';
 import fileRouter from './fileRouter';
+import instructionProcessRouter from './instructionProcessRouter';
 const router = Router();
 
 router.use('/action', actionRouter);
@@ -21,4 +22,5 @@ router.use('/round', roundSessionRouter);
 router.use('/register-project', registerProjectRouter);
 router.use('/approve-project', approveProjectRouter);
 router.use('/file', fileRouter);
+router.use('/instruction-process', instructionProcessRouter);
 export default router;

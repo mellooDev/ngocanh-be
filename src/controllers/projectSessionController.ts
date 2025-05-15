@@ -38,6 +38,48 @@ export class ProjectSessionController {
         }
     }
 
+    async getAllSession(req: Request, res: Response): Promise<void> {
+        try {
+            const action = req.body;
+            const result = await this.projectSessionService.getAllProjectSession(
+            );
+
+            if (result) {
+                res.status(200).json({
+                    message: "Lấy danh sách đợt thành công",
+                    results: true,
+                    data: result.data,
+                });
+            }
+        } catch (error: any) {
+            res.status(500).json({
+                message: error.message || "Lỗi server",
+                results: false,
+            });
+        }
+    }
+
+    async getSessionWithoutInstructionProcess(req: Request, res: Response): Promise<void> {
+        try {
+            const action = req.body;
+            const result = await this.projectSessionService.getSessionWithoutInstructionProcess(
+            );
+
+            if (result) {
+                res.status(200).json({
+                    message: "Lấy danh sách đợt thành công",
+                    results: true,
+                    data: result.data,
+                });
+            }
+        } catch (error: any) {
+            res.status(500).json({
+                message: error.message || "Lỗi server",
+                results: false,
+            });
+        }
+    }
+
     async createProjectSession(req: Request, res: Response): Promise<any> {
         try {
             const { session, rounds, settings } = req.body;

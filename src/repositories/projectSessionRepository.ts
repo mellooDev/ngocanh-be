@@ -23,6 +23,30 @@ export class ProjectSessionRepository {
             throw new Error(error.message);
         }
     }
+    
+    async getAllSession(
+    ): Promise<any> {
+        try {
+            const sql = 'select * from get_all_project_session()';
+            const result = await this.db.query(sql, []);
+
+            return result.rows;
+        } catch (error: any) {
+            throw new Error(error.message);
+        }
+    }
+
+    async getSessionWithoutInstructionProcess(
+    ): Promise<any> {
+        try {
+            const sql = 'select * from get_project_sessions_without_instruction_process()';
+            const result = await this.db.query(sql, []);
+
+            return result.rows;
+        } catch (error: any) {
+            throw new Error(error.message);
+        }
+    }
 
     async createProjectSession(projectSession: any): Promise<void> {
         try {
